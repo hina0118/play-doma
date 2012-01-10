@@ -1,0 +1,13 @@
+self: play -> doma 0.1
+
+require:
+    - play
+    - org.seasar.doma -> doma [1.20,):
+        transitive: false
+
+repositories:
+    - seasar:
+        type: iBiblio
+        root: "http://maven.seasar.org/maven2/"
+        contains:
+            - org.seasar.doma -> *
