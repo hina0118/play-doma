@@ -1,0 +1,12 @@
+# Application dependencies
+
+require:
+    - play
+    - doma -> doma
+
+repositories:
+    - My modules:
+        type:       local
+        artifact:   ${application.path}/../../../[module]
+        contains:
+            - doma

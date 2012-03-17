@@ -1,9 +1,14 @@
 package play.modules.doma;
 
+import org.seasar.doma.jdbc.DomaAbstractConfig;
+import org.seasar.doma.jdbc.tx.LocalTransaction;
+
+import play.Logger;
 import play.Play;
 import play.PlayPlugin;
 import play.inject.BeanSource;
 import play.inject.Injector;
+import play.utils.Java;
 
 public class DomaPlugin extends PlayPlugin implements BeanSource {
 	@Override
@@ -26,10 +31,39 @@ public class DomaPlugin extends PlayPlugin implements BeanSource {
 				}
 			}
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			Logger.error(e, "DaoÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅB");
+			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			Logger.error(e, "DaoÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅB");
+			throw new RuntimeException(e);
 		}
 		return clazz.cast(obj);
+	}
+	
+	@Override
+	public void beforeInvocation() {
+		getLocalTransaction().begin();
+	}
+	
+	@Override
+	public void afterInvocation() {
+		getLocalTransaction().commit();
+	}
+	
+	@Override
+	public void onInvocationException(Throwable e) {
+		getLocalTransaction().rollback();
+	}
+	
+	private LocalTransaction getLocalTransaction() {
+		LocalTransaction localTransaction = null;
+		try {
+			Class clazz = Play.classloader.getAssignableClasses(DomaAbstractConfig.class).get(0);
+			localTransaction = (LocalTransaction) Java.invokeStatic(clazz, "getLocalTransaction");
+		} catch (Exception e) {
+			Logger.error(e, "LocalTransactionÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅB");
+			throw new RuntimeException(e);
+		}
+		return localTransaction;
 	}
 }
