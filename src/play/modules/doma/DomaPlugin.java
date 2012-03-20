@@ -12,12 +12,25 @@ import play.inject.BeanSource;
 import play.inject.Injector;
 import play.utils.Java;
 
+/**
+ * Doma連携用のプラグイン
+ */
 public class DomaPlugin extends PlayPlugin implements BeanSource {
+	
+	/**
+	 * Playロード時の処理<br>
+	 * aptで生成されるソースファイルの出力先をpathに追加する
+	 */
 	@Override
 	public void onLoad() {
 		Play.javaPath.add(Play.getVirtualFile(".apt_generated"));
 	}
 
+	/**
+	 * アプリケーション開始時の処理<br>
+	 * ControllerクラスへDao実装クラスをInjectする<br>
+	 * DomainBinderクラスをDomainクラスの数だけ登録する
+	 */
 	@Override
 	public void onApplicationStart() {
 		Injector.inject(this);
@@ -27,6 +40,11 @@ public class DomaPlugin extends PlayPlugin implements BeanSource {
 		}
 	}
 
+	/**
+	 * Dao実装クラスのInject
+	 * 
+	 * @param clazz
+	 */
 	@Override
 	public <T> T getBeanOfType(Class<T> clazz) {
 		Object obj = null;
@@ -44,21 +62,35 @@ public class DomaPlugin extends PlayPlugin implements BeanSource {
 		return clazz.cast(obj);
 	}
 	
+	/**
+	 * トランザクションを開始する
+	 */
 	@Override
 	public void beforeInvocation() {
 		getLocalTransaction().begin();
 	}
 	
+	/**
+	 * トランザクションをコミットする
+	 */
 	@Override
 	public void afterInvocation() {
 		getLocalTransaction().commit();
 	}
 	
+	/**
+	 * トランザクションをロールバックする
+	 * 
+	 * @param e
+	 */
 	@Override
 	public void onInvocationException(Throwable e) {
 		getLocalTransaction().rollback();
 	}
 	
+	/**
+	 * ConfigクラスからLocalTransactionを取得する
+	 */
 	private LocalTransaction getLocalTransaction() {
 		LocalTransaction localTransaction = null;
 		try {

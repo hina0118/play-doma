@@ -1,4 +1,4 @@
-self: play -> doma 0.1
+self: play -> doma 0.2
 
 require:
     - play

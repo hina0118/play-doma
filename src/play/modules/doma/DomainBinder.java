@@ -10,8 +10,22 @@ import play.Logger;
 import play.data.binding.TypeBinder;
 import play.utils.Java;
 
+/**
+ * HTTPリクエストパラメータをDomainクラスにバインドする
+ */
 public class DomainBinder implements TypeBinder<Object> {
 	
+	/**
+	 * publicコンストラクタを使ってインスタンス化<br>
+	 * publicコンストラクタが見つからない場合はFactoryMethodを使ってインスタンス化する
+	 * 
+	 * @param name
+	 * @param annotations
+	 * @param value
+	 * @param actualClass
+	 * @param genericType
+	 * @return Object
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public Object bind(String name, Annotation[] annotations, String value,

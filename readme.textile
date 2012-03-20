@@ -1,31 +1,34 @@
-h1. {module name}
+h1. Domaモジュール
 
-p(note). Write your module documentation in this file, possibly linking to other Textile files, and delete these notes when you are finished.
+p(note). Play framework1.2.4でDomaを使用できるようにするモジュールです。
 
-p(note). Start with a clear statement of what the module is and what it is for. Link to any third-party libraries that the module is based on.
 
-p(note). Briefly describe why you might want to use this module in a Play application.
+h2. サンプルアプリケーション
 
-h2. Sample application
+p(note). @samples-and-tests@ にSelect、Insert、Update、Delete操作を実装したユーザー管理アプリケーションがあります。
 
-p(note). Your module should contain a sample app in the @sample@ directory that demonstrates the module. Describe how to run the demo here.
+h2. 設定方法
 
-h2. Getting started
+p(note). ダウンロードしたモジュールをdependencies.ymlに記述して@play dependencies@、または、@play deps@を実行します。
 
-p(note). Describe any installation that is required, beyond adding and resolving the module dependency.
+例）
+<pre>
+require:
+    - play
+    - doma -> doma
 
-h2. Configuration
+repositories:
+    - My modules:
+        type:       local
+        artifact:   ${application.path}/../../../[module]
+        contains:
+            - doma
+</pre>
 
-p(note). List any configuration options that the module uses, with an @h3.@ heading for each one.
+h2. 使用方法
 
-h2. Usage
+p(note). "ドキュメント":documentation/manual/home.textile を参照してください。
 
-p(note). Explain how to use the module, and describe any routes, controllers, models or views that the module provides.
+h2. コマンド
 
-h2. Tags
-
-p(note). List any tags the module provides, with an @h3.@ heading for each one. Include the tags’ arguments.
-
-h2. Commands
-
-p(note). List any commands the module provides, with an @h3.@ heading for each one. Include the commands’ options.
+p(note). @play eclipsify@、@play ec@にEclipseのapt設定を追加設定するようになっています。
