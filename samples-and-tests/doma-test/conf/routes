@@ -4,8 +4,10 @@
 
 # Home page
 GET     /                                       Application.index
-POST    /                                       Application.create
+POST    /create                                 Application.create
 GET     /delete                                 Application.delete
+GET     /view                                   Application.view
+POST    /update                                 Application.update
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

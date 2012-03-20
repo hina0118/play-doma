@@ -14,33 +14,33 @@ import play.db.DB;
 import play.modules.doma.PlayLogger;
 
 public class AppConfig extends DomaAbstractConfig {
- 
-    protected static final LocalTransactionalDataSource dataSource = createDataSource();
 
-    protected static final Dialect dialect = new H2Dialect();
-    
-    protected static final JdbcLogger jdbcLogger = new PlayLogger();
+	protected static final LocalTransactionalDataSource dataSource = createDataSource();
 
-    @Override
-    public DataSource getDataSource() {
-        return dataSource;
-    }
+	protected static final Dialect dialect = new H2Dialect();
 
-    @Override
-    public Dialect getDialect() {
-        return dialect;
-    }
-    
-    @Override
-    public JdbcLogger getJdbcLogger() {
-    	return jdbcLogger;
-    }
+	protected static final JdbcLogger jdbcLogger = new PlayLogger();
 
-    protected static LocalTransactionalDataSource createDataSource() {
-        return new LocalTransactionalDataSource(DB.datasource);
-    }
+	@Override
+	public DataSource getDataSource() {
+		return dataSource;
+	}
 
-    public static LocalTransaction getLocalTransaction() {
-        return dataSource.getLocalTransaction(jdbcLogger);
-    }
+	@Override
+	public Dialect getDialect() {
+		return dialect;
+	}
+
+	@Override
+	public JdbcLogger getJdbcLogger() {
+		return jdbcLogger;
+	}
+
+	protected static LocalTransactionalDataSource createDataSource() {
+		return new LocalTransactionalDataSource(DB.datasource);
+	}
+
+	public static LocalTransaction getLocalTransaction() {
+		return dataSource.getLocalTransaction(jdbcLogger);
+	}
 }

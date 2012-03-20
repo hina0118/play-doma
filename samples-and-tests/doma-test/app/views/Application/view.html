@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+#{set title:'ユーザー管理' /}
+
+<div>
+    <h1>ユーザー管理</h1>
+    <a href="@{Application.index()}">index</a>
+    <hr>
+    #{form @Application.update()}
+    <table border="1">
+        <tr>
+            <td>ID</td>
+            <td>
+                ${user.id}
+                <input type="hidden" value="${user.id}" name="user.id">
+                <input type="hidden" value="${user.password}" name="user.password">
+                <input type="hidden" value="${user.isAdmin}" name="user.isAdmin">
+            </td>
+        </tr>
+        <tr>
+            <td>MAIL</td>
+            <td><input type="text" value="${user.email}" name="user.email"></td>
+        </tr>
+        <tr>
+            <td>NAME</td>
+            <td><input type="text" value="${user.fullname}" name="user.fullname"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="更新"></td>
+        </tr>
+    </table>
+    #{/form}
+</div>
