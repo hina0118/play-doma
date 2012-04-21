@@ -6,6 +6,8 @@ import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 import org.seasar.doma.SequenceGenerator;
 
+import play.data.validation.Required;
+
 import doma.user.domain.Email;
 import doma.user.domain.Password;
 
@@ -24,14 +26,17 @@ public class User {
 	/**
 	 * メールアドレス
 	 */
+	@Required(message = "email is required")
 	Email email;
 	/**
 	 * パスワード
 	 */
+	@Required(message = "password is required")
 	Password password;
 	/**
 	 * 名前
 	 */
+	@Required(message = "fullname is required")
 	String fullname;
 	/**
 	 * 管理者

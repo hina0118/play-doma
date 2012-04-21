@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import play.data.validation.Required;
+import play.data.validation.Valid;
 import play.mvc.Controller;
 import doma.user.User;
 import doma.user.UserDao;
+import doma.user.domain.Email;
 
 /**
  * サンプルアプリケーションのコントローラ
@@ -31,7 +34,11 @@ public class Application extends Controller {
 	 * 
 	 * @param user
 	 */
-	public static void create(User user) {
+	public static void create(@Valid(message="validation failed") User user) {
+		if(validation.hasErrors()) {
+			validation.keep();
+			index();
+		}
 		userDao.insert(user);
 		index();
 	}
@@ -60,9 +67,20 @@ public class Application extends Controller {
 	/**
 	 * ユーザー更新
 	 * 
-	 * @param user
+	 * @param id
+	 * @param email
+	 * @param fullname
 	 */
-	public static void update(User user) {
+	public static void update(Integer id,
+			@Required(message = "email is required") Email email,
+			@Required(message = "fullname is required") String fullname) {
+		if(validation.hasErrors()) {
+			validation.keep();
+			view(id);
+		}
+		User user = userDao.selectById(id);
+		user.setEmail(email);
+		user.setFullname(fullname);
 		userDao.update(user);
 		index();
 	}

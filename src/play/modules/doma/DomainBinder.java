@@ -30,6 +30,9 @@ public class DomainBinder implements TypeBinder<Object> {
 	@SuppressWarnings("unchecked")
 	public Object bind(String name, Annotation[] annotations, String value,
 			Class actualClass, Type genericType) throws Exception {
+		if (value == null || value.length() == 0) {
+			return null;
+		}
 		Object domain = null;
 		Domain annotation = (Domain) actualClass.getAnnotation(Domain.class);
 		try {

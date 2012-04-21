@@ -9,7 +9,7 @@ p(note). @samples-and-tests@ にSelect、Insert、Update、Delete操作を実装
 
 h2. 設定方法
 
-p(note). ダウンロードしたモジュールをdependencies.ymlに記述して@play dependencies@、または、@play deps@を実行します。
+p(note). ダウンロードしたモジュールをdependencies.ymlに記述して @play dependencies@、または、 @play deps@を実行します。
 
 例）
 <pre>
@@ -27,8 +27,8 @@ repositories:
 
 h2. 使用方法
 
-p(note). "ドキュメント":documentation/manual/home.textile を参照してください。
+p(note). "ドキュメント":http://hina0118.github.com/Play-Doma.html を参照してください。
 
 h2. コマンド
 
-p(note). @play eclipsify@、@play ec@にEclipseのapt設定を追加設定するようになっています。
+p(note). @play eclipsify@、 @play ec@コマンドでEclipseのapt設定を追加設定するようになっています。EclipseにインポートするだけでDoma、aptが使用可能です。

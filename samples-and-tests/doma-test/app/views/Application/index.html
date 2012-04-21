@@ -1,35 +1,50 @@
 #{extends 'main.html' /}
 #{set title:'ユーザー管理' /}
 
-<div>
-    <h1>ユーザー管理</h1>
-    #{form @Application.create()}
-    MAIL:<input type="text" name="user.email">
-    PASS:<input type="password" name="user.password">
-    NAME:<input type="text" name="user.fullname">
-    <input type="submit" value="登録">
+<div class="container">
+    <div class="page-header">
+        <h1>ユーザー管理<small> - 追加、削除</small></h1>
+    </div>
+    #{ifErrors}
+    <div class="alert alert-block">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <h4 class="alert-heading">Oops…</h4>
+        #{errors}
+            <li>${error}</li>
+        #{/errors}
+    </div>
+    #{/ifErrors}
+    #{form @Application.create(), class:'well form-inline'}
+    <label>MAIL:</label><input type="text" name="user.email">
+    <label>PASS:</label><input type="password" name="user.password">
+    <label>NAME:</label><input type="text" name="user.fullname">
+    <input type="submit" value="insert" class="btn">
     #{/form}
     <hr>
-    <table border="1">
-        <tr>
-            <th>id</th>
-            <th>email</th>
-            <th>password</th>
-            <th>fullname</th>
-            <th>isAdmin</th>
-            <th>update</th>
-            <th>delete</th>
-        </tr>
+    <table class="table table-condensed">
+        <thead>
+	        <tr>
+	            <th>id</th>
+	            <th>email</th>
+	            <th>password</th>
+	            <th>fullname</th>
+	            <th>isAdmin</th>
+	            <th>update</th>
+	            <th>delete</th>
+	        </tr>
+        </thead>
+        <tbody>
         #{list items:users, as:'user'}
-        <tr>
-            <td>${user.id}</td>
-            <td>${user.email}/${user.email.domainName}</td>
-            <td>${user.password.maskedPassword}</td>
-            <td>${user.fullname}</td>
-            <td>${user.isAdmin}</td>
-            <td><a href="@{Application.view(user.id)}">update</a></td>
-            <td><a href="@{Application.delete(user.id)}">delete</a></td>
-        </tr>
+	        <tr>
+	            <td>${user.id}</td>
+	            <td>${user.email}/${user.email.domainName}</td>
+	            <td>${user.password.maskedPassword}</td>
+	            <td>${user.fullname}</td>
+	            <td>${user.isAdmin}</td>
+	            <td><a href="@{Application.view(user.id)}" class="btn btn-mini">view</a></td>
+	            <td><a href="@{Application.delete(user.id)}" class="btn btn-mini">delete</a></td>
+	        </tr>
         #{/list}
+        </tbody>
     </table>
 </div>

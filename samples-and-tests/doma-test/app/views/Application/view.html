@@ -1,32 +1,32 @@
 #{extends 'main.html' /}
 #{set title:'ユーザー管理' /}
 
-<div>
-    <h1>ユーザー管理</h1>
-    <a href="@{Application.index()}">index</a>
-    <hr>
-    #{form @Application.update()}
-    <table border="1">
-        <tr>
-            <td>ID</td>
-            <td>
-                ${user.id}
-                <input type="hidden" value="${user.id}" name="user.id">
-                <input type="hidden" value="${user.password}" name="user.password">
-                <input type="hidden" value="${user.isAdmin}" name="user.isAdmin">
-            </td>
-        </tr>
-        <tr>
-            <td>MAIL</td>
-            <td><input type="text" value="${user.email}" name="user.email"></td>
-        </tr>
-        <tr>
-            <td>NAME</td>
-            <td><input type="text" value="${user.fullname}" name="user.fullname"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="更新"></td>
-        </tr>
-    </table>
+<div class="container">
+    <div class="page-header">
+        <h1>ユーザー管理<small> - 更新</small></h1>
+    </div>
+    #{ifErrors}
+    <div class="alert alert-block">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <h4 class="alert-heading">Oops…</h4>
+        #{errors}
+            <li>${error}</li>
+        #{/errors}
+    </div>
+    #{/ifErrors}
+    #{form @Application.update(), class:'well form-horizontal'}
+        <label>ID</label>
+        <input type="text" value="${user.id}" name="id" readonly>
+        <hr>
+        <label>MAIL</label>
+        <input type="text" value="${user.email}" name="email">
+        <hr>
+        <label>NAME</label>
+        <input type="text" value="${user.fullname}" name="fullname">
+        <hr>
+        <div>
+            <button type="submit" class="btn">update</button>
+            <a href="@{Application.index()}" class="btn">cancel</a>
+        </div>
     #{/form}
 </div>
